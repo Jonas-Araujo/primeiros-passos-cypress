@@ -2,32 +2,33 @@ class MyInfoPage {
     selectorsList() {
         const selectors = {
             firstNameField: '[name="firstName"]',
-            middleNameField: '[name="middleName"]',
             lastNameField: '[name="lastName"]',
             genericField: '.oxd-input--active', // Porque não temos um outro elemento para selecionar especificamente
             dateField: '[placeholder="mm-dd-yyyy"]',
             genericComboBox: '.oxd-select-text--arrow',
-            secondItemComboBox: '.oxd-select-dropdown > :nth-child(27)',
-            thirdItemComboBox: '.oxd-select-dropdown > :nth-child(2)',
-            submitButton: '.orangehrm-left-space',
+            secondItemComboBox: '.oxd-select-dropdown > :nth-child(2)',
+            thirdItemComboBox: '.oxd-select-dropdown > :nth-child(3)',
             dateCloseButton: '.--close',
+            submitButton: '.orangehrm-left-space',
         }
 
         return selectors
     }
     
-    fillPersonalDetails(firstName, middleName, lastName) {
+    fillPersonalDetails(firstName, lastName, nickName) {
         cy.get(this.selectorsList().firstNameField).clear().type(firstName)
-        cy.get(this.selectorsList().middleNameField).clear().type(middleName)
         cy.get(this.selectorsList().lastNameField).clear().type(lastName)
+        cy.get(this.selectorsList().genericField).eq(3).clear().type(nickName)
     }
 
-    fillEmployeeDetails(employeeId, otherId, driverLicense, licenseExpiryDate) {
-        cy.get(this.selectorsList().genericField).eq(3).clear().type(employeeId)
-        cy.get(this.selectorsList().genericField).eq(4).clear().type(otherId)
-        cy.get(this.selectorsList().genericField).eq(5).clear().type(driverLicense)
-        cy.get(this.selectorsList().genericField).eq(6).clear().type(licenseExpiryDate)
+    fillEmployeeDetails(employeeId, otherId, driverLicenseNumber, expiryDate, ssnNumber, sinNumber) {
+        cy.get(this.selectorsList().genericField).eq(4).clear().type(employeeId)
+        cy.get(this.selectorsList().genericField).eq(5).clear().type(otherId)
+        cy.get(this.selectorsList().genericField).eq(6).clear().type(driverLicenseNumber)
+        cy.get(this.selectorsList().genericField).eq(7).clear().type(expiryDate)
         cy.get(this.selectorsList().dateCloseButton).click()
+        cy.get(this.selectorsList().genericField).eq(8).clear().type(ssnNumber)
+        cy.get(this.selectorsList().genericField).eq(9).clear().type(sinNumber)
     }
 
     fillStatus() {

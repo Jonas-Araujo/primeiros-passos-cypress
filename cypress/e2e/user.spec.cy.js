@@ -1,30 +1,46 @@
+// Importação de módulos e arquivos necessários
 import userData from '../fixtures/users/userData.json'
 import LoginPage from '../pages/loginPage'
 import DashboardPage from '../pages/dashboardPage'
 import MenuPage from '../pages/menuPage'
 import MyInfoPage from '../pages/myinfoPage'
 
+// Chance JS e Instanciação
 const Chance = require('chance')
-
 const chance = new Chance()
-const loginPage = new LoginPage() // objeto da classe
+
+// Instanciação dos objetos das classes das páginas
+const loginPage = new LoginPage()
 const dashboardPage = new DashboardPage()
 const menuPage = new MenuPage()
 const myInfoPage = new MyInfoPage()
 
+// Descrição do conjunto de testes para Orange HRM
 describe('Orange HRM Tests', () => {
 
+  // Teste de atualização de informações de usuário com sucesso
   it('User Info Update - Success', () => {
+    // Acessar página de login e realizar login
     loginPage.accessLoginPage()
     loginPage.loginWithAnyUser(userData.userSuccess.username, userData.userSuccess.password)
 
+    // Verificar página de dashboard
     dashboardPage.checkDashboardPage()
 
+    // Acessar seção de informações pessoais
     menuPage.accessMyInfo()
 
-    myInfoPage.fillPersonalDetails(chance.first({ gender: "Male" }), chance.last(), chance.last())
-    myInfoPage.fillEmployeeDetails(chance.natural({ max: 9999999999 })
-    ,chance.natural({ max: 99999 }),chance.cpf(),chance.date({year: chance.integer({min: new Date().getFullYear(), max: new Date().getFullYear() + 8})}).toISOString().slice(0, 10))
+    // Preencher informações pessoais
+    /*
+    myInfoPage.fillPersonalDetails('First Name', 'Last Name', 'nickName')
+    myInfoPage.fillEmployeeDetails('EmployId', 'otherId', 'Drivers Number', '2025-07-29', '123456', '0987654')
+    */
+
+    // Preencher informações pessoais utilizando Chance JS
+    myInfoPage.fillPersonalDetails(chance.first(), chance.last(), chance.string())
+    myInfoPage.fillEmployeeDetails('EmployId', 'otherId', 'Drivers Number', '2025-07-29', '123456', '0987654')
+
+    // Preencher status e salvar formulário
     myInfoPage.fillStatus()
     myInfoPage.saveForm()
   })
