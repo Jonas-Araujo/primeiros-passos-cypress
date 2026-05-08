@@ -9,5 +9,7 @@ module.exports = defineConfig({
     },
 
     baseUrl: 'https://opensource-demo.orangehrmlive.com/web/index.php',
+    defaultCommandTimeout:  15000,  // 15s para comandos (.get, .click, .type...)
+    pageLoadTimeout:        60000,  // 60s para carregamento de página
   },
 });

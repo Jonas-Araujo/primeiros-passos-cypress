@@ -1,57 +1,32 @@
-  // ─── IMPORTS ──────────────────────────────────────────────────────────────────
+// ─── IMPORTS ──────────────────────────────────────────────────────────────────
 import userData from '../fixtures/users/userData.json'
+import LoginPage from '../pages/loginPage.js'
+import DashboardPage from '../pages/dashboardPage.js'
+import MenuPage from '../pages/menuPage.js'
+import MyInfoPage from '../pages/myInfoPage.js'
 
+const Chance = require('chance')
+
+const chance = new Chance()
+const loginPage = new LoginPage()
+const dashboardPage = new DashboardPage()
+const menuPage = new MenuPage()
+const myInfoPage = new MyInfoPage()
+
+// ─── TEST CASES ───────────────────────────────────────────────────────────────
 describe('Orange HRM | Authentication', () => {
+  
+  it('User Info Update - Success', () => {
+    loginPage.accessLoginPage()
+    loginPage.loginWithAnyUser(userData.userSuccess.username, userData.userSuccess.password)
+    dashboardPage.checkDashboardPage()
 
-  // ─── SELECTORS ────────────────────────────────────────────────────────────────
-  const selectorsList = {
-    usernameField: '[name="username"]',
-    passwordField: '[name="password"]',
-    loginButton: '[type="submit"]',
-    dashboardGrid: '.orangehrm-dashboard-grid',
-    wrongCredentialAlert: '[role="alert"]',
+    menuPage.accessMyInfo()
 
-    myInfoButton: '[href="/web/index.php/pim/viewMyDetails"]',
-    firstNameField: '[name="firstName"]',
-    middleNameField: '[name="middleName"]',
-    lastNameField: '[name="lastName"]',
-    genericField: '.oxd-input--active',
-    dateField: '[placeholder="yyyy-dd-mm"]', // Aguardando ser utilizado
-    dateCloseButton: '.--close',
-    submitButton: '[type="submit"]',
-  }
-
-  // ─── TEST CASES ───────────────────────────────────────────────────────────────
-
-  it.only('User Info Update - Success', () => {
-    cy.visit('/auth/login')
-    cy.get(selectorsList.usernameField).type(userData.userSuccess.username)
-    cy.get(selectorsList.passwordField).type(userData.userSuccess.password)
-    cy.get(selectorsList.loginButton).click()
-    cy.location('pathname').should('equal', '/web/index.php/dashboard/index')
-    cy.get(selectorsList.dashboardGrid)
-    cy.get(selectorsList.myInfoButton).click().wait(5000)
-    cy.get(selectorsList.firstNameField).clear().type('FName')
-    cy.get(selectorsList.middleNameField).clear().type('MDName')
-    cy.get(selectorsList.lastNameField).clear().type('LName')
-    cy.get(selectorsList.genericField).eq(3).clear().type('NName')    
-    cy.get(selectorsList.genericField).eq(4).clear().type('Employee')
-    cy.get(selectorsList.genericField).eq(5).clear().type('OtherId')
-    cy.get(selectorsList.genericField).eq(6).clear().type('123')
-    cy.get(selectorsList.genericField).eq(7).clear().type('2026-07-05')
-    cy.get(selectorsList.dateCloseButton).click()
-    cy.get(selectorsList.genericField).eq(8).clear().type('1234')
-    cy.get(selectorsList.genericField).eq(9).clear().type('12345')
-    cy.get(selectorsList.submitButton).eq(0).click()
-    cy.get('.oxd-toast-close')
-  })
-
-  it('Login - Fail', () => {
-    cy.visit('/auth/login')
-    cy.get(selectorsList.usernameField).type(userData.userFail.username)
-    cy.get(selectorsList.passwordField).type(userData.userFail.password)
-    cy.get(selectorsList.loginButton).click()
-    cy.get(selectorsList.wrongCredentialAlert)
+    myInfoPage.fillPersonalDetails(chance.first(), chance.first(), chance.last(), chance.twitter())
+    myInfoPage.fillEmployeeDetails('EmployId', 'OtherId', 'DriverNumber', '2026-08-05', '12345', '123456')
+    myInfoPage.fillStatus()
+    myInfoPage.saveForm()
   })
 
 })
