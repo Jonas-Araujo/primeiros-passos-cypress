@@ -1,4 +1,4 @@
-# 🧪 Primeiros Passos com Cypress
+# Primeiros Passos com Cypress
 
 Projeto de automação de testes E2E desenvolvido com **Cypress** aplicando boas práticas de QA, como **Page Objects**, **BasePage com herança**, **dados dinâmicos** e **organização profissional de código**.
 
@@ -205,3 +205,8 @@ pageLoadTimeout:       60000,
 ## Licença
 
 Este projeto está sob a licença MIT.
+
+---
+
+- [Início](#primeiros-passos-com-cypress)
+---
