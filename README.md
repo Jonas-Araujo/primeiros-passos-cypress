@@ -11,14 +11,15 @@ Projeto de automação de testes E2E desenvolvido com **Cypress** aplicando boas
 - [Sobre o Projeto](#sobre-o-projeto)
 - [Tecnologias](#tecnologias)
 - [Estrutura do Projeto](#estrutura-do-projeto)
-- [Pré-requisitos](#pré-requisitos)
+- [Pré-requisitos](#pr-requisitos)
 - [Como Executar](#como-executar)
-- [Testes Disponíveis](#testes-disponíveis)
-- [Destaques Técnicos](#destaques-técnicos)
+- [Testes Disponíveis](#testes-disponveis)
+- [Destaques Técnicos](#destaques-tcnicos)
+- [Autor](#autor)
 
 ---
 
-## 📌 Sobre o Projeto
+## Sobre o Projeto
 
 Automação de testes do sistema [OrangeHRM](https://opensource-demo.orangehrmlive.com) — uma plataforma de RH open source utilizada como ambiente de demonstração.
 
@@ -29,18 +30,18 @@ Os testes cobrem os principais fluxos de:
 
 ---
 
-## 🛠 Tecnologias
+## Tecnologias
 
-| Tecnologia | Versão | Uso |
-|---|---|---|
-| [Cypress](https://www.cypress.io/) | Latest | Framework de testes E2E |
-| [Chance.js](https://chancejs.com/) | Latest | Geração de dados aleatórios |
-| [Node.js](https://nodejs.org/) | LTS | Ambiente de execução |
-| Prettier ESLint | Latest | Formatação de código |
+| Tecnologia | Uso |
+|---|---|
+| [Cypress](https://www.cypress.io/) | Framework de testes E2E |
+| [Chance.js](https://chancejs.com/) | Geração de dados aleatórios |
+| [Node.js](https://nodejs.org/) | Ambiente de execução |
+| Prettier ESLint | Formatação de código |
 
 ---
 
-## 📁 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 cypress/
@@ -68,14 +69,14 @@ cypress/
 
 ---
 
-## ✅ Pré-requisitos
+## Pré-requisitos
 
 - [Node.js](https://nodejs.org/) instalado
 - [Git](https://git-scm.com/) instalado
 
 ---
 
-## 🚀 Como Executar
+## Como Executar
 
 **1. Clone o repositório:**
 ```bash
@@ -97,9 +98,10 @@ npx cypress open
 
 ---
 
-## 🧪 Testes Disponíveis
+## Testes Disponveis
 
 ### `login.spec.cy.js` — Autenticação
+
 Cobre os fluxos básicos de login da aplicação.
 
 | Teste | Descrição |
@@ -110,13 +112,14 @@ Cobre os fluxos básicos de login da aplicação.
 ---
 
 ### `user.spec.cy.js` — Atualização de Dados
+
 Cobre o fluxo completo de atualização dos dados pessoais do usuário.
 
 | Teste | Descrição |
 |---|---|
-| `User Info Update - Success` | Realiza login, navega até My Info e preenche todos os campos de dados pessoais com dados aleatórios gerados pelo Chance.js |
+| `User Info Update - Success` | Realiza login, navega até My Info e preenche todos os campos com dados gerados aleatoriamente |
 
-> **Dados gerados dinamicamente:** firstName, middleName, lastName e nickName são gerados aleatoriamente a cada execução via Chance.js, garantindo independência entre os testes.
+> **Dados gerados dinamicamente:** firstName, middleName, lastName e nickName são gerados a cada execução via Chance.js, garantindo independência entre os testes.
 
 ---
 
@@ -124,9 +127,10 @@ Cobre o fluxo completo de atualização dos dados pessoais do usuário.
 
 Este teste foi desenvolvido de forma **independente**, além do conteúdo do curso.
 
-**Problema identificado:** Os campos Nickname, SSN Number e SIN Number só aparecem no formulário de dados pessoais quando habilitados manualmente no módulo PIM → Configuration → Optional Fields.
+**Problema identificado:** Os campos Nickname, SSN Number e SIN Number só aparecem no formulário quando habilitados manualmente no módulo PIM → Configuration → Optional Fields.
 
 **Solução criada:** Antes de preencher o formulário, o teste automaticamente:
+
 1. Acessa o módulo PIM
 2. Verifica se está na página correta
 3. Habilita os três campos opcionais
@@ -139,9 +143,10 @@ Login → Dashboard → PIM Config → Habilita campos → MyInfo → Preenche �
 
 ---
 
-## 🏗 Destaques Técnicos
+## Destaques Tcnicos
 
 ### Page Objects com herança (BasePage)
+
 Todos os Page Objects herdam da `BasePage`, que centraliza seletores e funções comuns, evitando repetição de código.
 
 ```javascript
@@ -157,6 +162,7 @@ class LoginPage extends BasePage {
 ```
 
 ### Seletores estáveis
+
 Priorizados seletores semânticos e resistentes a mudanças de build, evitando atributos gerados dinamicamente pelo Vue.js.
 
 ```javascript
@@ -168,6 +174,7 @@ Priorizados seletores semânticos e resistentes a mudanças de build, evitando a
 ```
 
 ### Custom Command para debug
+
 ```javascript
 // commands.js
 Cypress.Commands.add('logOptions', (selector) => {
@@ -178,6 +185,7 @@ Cypress.Commands.add('logOptions', (selector) => {
 ```
 
 ### Timeouts inteligentes
+
 Configurados no `cypress.config.js` para evitar falhas em ambientes lentos sem uso de `.wait()` fixo.
 
 ```javascript
@@ -187,13 +195,13 @@ pageLoadTimeout:       60000,
 
 ---
 
-## 👨‍💻 Autor
+## Autor
 
 **Jonas Araujo**
 - GitHub: [@Jonas-Araujo](https://github.com/Jonas-Araujo)
 
 ---
 
-## 📄 Licença
+## Licença
 
 Este projeto está sob a licença MIT.
