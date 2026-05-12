@@ -13,8 +13,8 @@ Projeto de automação de testes E2E desenvolvido com **Cypress** aplicando boas
 - [Estrutura do Projeto](#estrutura-do-projeto)
 - [Pré-requisitos](#pré-requisitos)
 - [Como Executar](#como-executar)
-- [Testes Disponíveis](#testes-disponveis)
-- [Destaques Técnicos](#destaques-tcnicos)
+- [Testes Disponíveis](#testes-disponíveis)
+- [Destaques Técnicos](#destaques-técnicos)
 - [Autor](#autor)
 
 ---
@@ -98,7 +98,7 @@ npx cypress open
 
 ---
 
-## Testes Disponveis
+## Testes Disponíveis
 
 ### `login.spec.cy.js` — Autenticação
 
@@ -143,7 +143,7 @@ Login → Dashboard → PIM Config → Habilita campos → MyInfo → Preenche �
 
 ---
 
-## Destaques Tcnicos
+## Destaques Técnicos
 
 ### Page Objects com herança (BasePage)
 
