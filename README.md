@@ -11,7 +11,7 @@ Projeto de automação de testes E2E desenvolvido com **Cypress** aplicando boas
 - [Sobre o Projeto](#sobre-o-projeto)
 - [Tecnologias](#tecnologias)
 - [Estrutura do Projeto](#estrutura-do-projeto)
-- [Pré-requisitos](#pr-requisitos)
+- [Pré-requisitos](#pré-requisitos)
 - [Como Executar](#como-executar)
 - [Testes Disponíveis](#testes-disponveis)
 - [Destaques Técnicos](#destaques-tcnicos)
