@@ -1,7 +1,18 @@
-class MyInfoPage {
+// ─── IMPORTS ──────────────────────────────────────────────────────────────────
+import BasePage from '../pages/basePage.js'
 
+/**
+ * @class MyInfoPage
+ * @description Page Object da página My Info — Personal Details.
+ * Responsável por preencher e salvar os dados pessoais do usuário.
+ * Estende BasePage para herdar seletores e funções comuns.
+ */
+class MyInfoPage extends BasePage {
+  
+    // ─── SELECTORS ──────────────────────────────────────────────────────────────
     selectorsList() {
         const selectors = {
+            ...super.selectorsList(),
             firstNameField: '[name="firstName"]',
             middleNameField: '[name="middleName"]',
             lastNameField: '[name="lastName"]',
@@ -9,12 +20,12 @@ class MyInfoPage {
             genericCombobox: '.oxd-select-text',
             genericComboboxItem: '[role="listbox"] > *', // > * filhos diretos do dropdown
             dateCloseButton: '.--close',
-            submitButton: '[type="submit"]',
         }
 
         return selectors
     }
 
+    // ─── METHODS ────────────────────────────────────────────────────────────────
     fillPersonalDetails(firstName, middleName, lastName, nickName) {
         cy.get(this.selectorsList().firstNameField).clear().type(firstName)
         cy.get(this.selectorsList().middleNameField).clear().type(middleName)
@@ -33,10 +44,13 @@ class MyInfoPage {
     }
 
     saveForm() {
+        // submitButton herdado do BasePage, mas com comportamento específico
         cy.get(this.selectorsList().submitButton).eq(0).click({ force: true })
         cy.get('body').should('contain', 'Successfully Update')
         cy.get('.oxd-toast-close')
     }
+
+    // clickSubmit() → herdado do BasePage
 
     fillStatus() {
         cy.get(this.selectorsList().genericCombobox).eq(0).click()

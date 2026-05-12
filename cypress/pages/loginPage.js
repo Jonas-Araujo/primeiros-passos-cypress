@@ -1,29 +1,40 @@
-class LoginPage {
+// ─── IMPORTS ──────────────────────────────────────────────────────────────────
+import BasePage from '../pages/basePage.js'
 
-    selectorsList() {
-        const selectors = {
-            usernameField: '[name="username"]',
-            passwordField: '[name="password"]',
-            loginButton: '[type="submit"]',
-            wrongCredentialAlert: '[role="alert"]',
-        }
+/**
+ * @class LoginPage
+ * @description Page Object da página de Login.
+ * Responsável por acessar, preencher e validar o formulário de login.
+ * Estende BasePage para herdar seletores e funções comuns.
+ */
+class LoginPage extends BasePage {
 
-        return selectors
+  // ─── SELECTORS ──────────────────────────────────────────────────────────────
+  selectorsList() {
+    const selectors = {
+      ...super.selectorsList(),
+      usernameField: '[name="username"]',
+      passwordField: '[name="password"]',
+      wrongCredentialAlert: '[role="alert"]',
     }
+    return selectors
+  }
 
-    accessLoginPage() {
-        cy.visit('/auth/login')
-    }
+  // ─── METHODS ────────────────────────────────────────────────────────────────
+  accessLoginPage() {
+    cy.visit('/auth/login')
+  }
 
-    loginWithAnyUser(username, password) {
-        cy.get(this.selectorsList().usernameField).type(username)
-        cy.get(this.selectorsList().passwordField).type(password)
-        cy.get(this.selectorsList().loginButton).click()
-    }
+  loginWithAnyUser(username, password) {
+    cy.get(this.selectorsList().usernameField).type(username)
+    cy.get(this.selectorsList().passwordField).type(password)
+    this.clickSubmit() // ← herdado do BasePage
+  }
 
-    checkAccessInvalid() {
-        cy.get(this.selectorsList().wrongCredentialAlert)
-    }
+  checkAccessInvalid() {
+    cy.get(this.selectorsList().wrongCredentialAlert)
+  }
+
 }
 
 export default LoginPage
